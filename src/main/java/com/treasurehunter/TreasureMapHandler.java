@@ -59,9 +59,15 @@ public class TreasureMapHandler {
         Block surfaceBlock = world.getBlock(randomX, surfaceY, randomZ);
         Material material = surfaceBlock.getMaterial();
 
-        if (material == Material.water || material == Material.lava || surfaceBlock == Blocks.bedrock || surfaceY <= 5) {
+        if (material == Material.water) {
             player.addChatComponentMessage(new ChatComponentText(
-                EnumChatFormatting.RED + "The shifting terrain here is too unstable to hide treasure. Find solid ground!"));
+                EnumChatFormatting.BOLD.toString() + EnumChatFormatting.RED + "☠ You can't find buried treasure while out at sea! Find land first!"));
+            return; 
+        }
+
+        if (material == Material.lava || surfaceBlock == Blocks.bedrock || surfaceY <= 5) {
+            player.addChatComponentMessage(new ChatComponentText(
+                EnumChatFormatting.RED + "The terrain shifts too dangerously here. Find stable ground!"));
             return; 
         }
 
@@ -77,7 +83,7 @@ public class TreasureMapHandler {
         if (isTrapped) {
             world.setBlock(randomX, targetY - 1, randomZ, Blocks.tnt);
             player.addChatComponentMessage(new ChatComponentText(
-                EnumChatFormatting.RED + "The hair on your neck stands up... this hunt feels dangerous!"));
+                EnumChatFormatting.BOLD.toString() + EnumChatFormatting.DARK_RED + "☠ The air grows heavy... this loot looks dangerously guarded!"));
         }
 
         TileEntityChest tileChest = (TileEntityChest) world.getTileEntity(randomX, targetY, randomZ);
@@ -89,10 +95,10 @@ public class TreasureMapHandler {
         world.playSoundEffect(player.posX, player.posY, player.posZ, "ambient.weather.thunder", 0.6F, 1.2F);
 
         String coordMessage = String.format(
-            EnumChatFormatting.GOLD + "🏹 The hunt is on! Target located: " + 
-            EnumChatFormatting.YELLOW + "Dig at: " + 
-            EnumChatFormatting.GREEN + "X: %d, Y: %d, Z: %d " + 
-            EnumChatFormatting.AQUA + "(Bury depth: %d blocks)", 
+            EnumChatFormatting.GOLD + "🏴‍☠ Ahoy! The compass path is locked: " + 
+            EnumChatFormatting.YELLOW + "Dig down at: " + 
+            EnumChatFormatting.BOLD.toString() + EnumChatFormatting.GREEN + "X: %d, Y: %d, Z: %d " + 
+            EnumChatFormatting.RESET.toString() + EnumChatFormatting.AQUA + "(Buried %d blocks deep!)", 
             randomX, targetY, randomZ, buryDepth
         );
         player.addChatComponentMessage(new ChatComponentText(coordMessage));
