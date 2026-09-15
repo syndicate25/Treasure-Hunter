@@ -1,4 +1,4 @@
-package com.example.treasurehunter;
+package com.treasurehunter;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
