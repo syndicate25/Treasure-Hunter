@@ -11,15 +11,11 @@ buildscript {
 }
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id 'java-library'
     id 'maven-publish'
 }
 
 apply plugin: 'forge'
-
-final def buildDirectory = project.layout.buildDirectory.get()
-final def buildDirectoryAsFile = buildDirectory.asFile
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -69,29 +65,8 @@ processResources {
     }
 }
 
-reobf {
-    reobf(shadowJar) { spec ->
-        spec.classpath = sourceSets.main.compileClasspath;
-    }
-}
-
-shadowJar {
-    archiveFileName = "${mod_name}-Forge-${minecraft_version}-${mod_version}.jar"
-    exclude 'META-INF/versions/**'
-}
-
-artifacts {
-    archives shadowJar
-}
-
-tasks.register('copySrgs', Copy) {
-    dependsOn 'genSrgs'
-    from plugins.getPlugin("forge").delayedFile("{SRG_DIR}")
-    include '**/*.srg'
-    into 'build/srgs'
-}
-
 tasks.named('jar', Jar).configure {
+    archiveFileName = "${mod_name}-Forge-${minecraft_version}-${mod_version}.jar"
     manifest {
         attributes([
                 "Specification-Title"     : mod_id,
@@ -103,6 +78,13 @@ tasks.named('jar', Jar).configure {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+tasks.register('copySrgs', Copy) {
+    dependsOn 'genSrgs'
+    from plugins.getPlugin("forge").delayedFile("{SRG_DIR}")
+    include '**/*.srg'
+    into 'build/srgs'
 }
 
 setupDecompWorkspace.dependsOn copySrgs

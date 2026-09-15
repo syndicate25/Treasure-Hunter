@@ -10,6 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -44,16 +45,30 @@ public class TreasureMapHandler {
         boolean isMatchedMap = false;
 
         for (String configLine : TreasureHunterMod.mapConfigurations) {
-            String[] parts = configLine.split("\\|");
-            if (parts.length >= 3 && parts[0].trim().equals(itemName)) {
-                lootKey = parts[1].trim();
-                try {
-                    trapChance = Integer.parseInt(parts[2].trim());
-                } catch (NumberFormatException e) {
-                    trapChance = 0;
+            if (configLine == null) {
+                continue;
+            }
+            
+            String cleanLine = configLine.trim();
+            if (!cleanLine.contains("|")) {
+                continue;
+            }
+            
+            String[] parts = cleanLine.split("\\|");
+            if (parts.length >= 3) {
+
+                String configuredItem = parts[0].trim();
+                
+                if (configuredItem.equalsIgnoreCase(itemName.trim())) {
+                    lootKey = parts[1].trim();
+                    try {
+                        trapChance = Integer.parseInt(parts[2].trim());
+                    } catch (NumberFormatException e) {
+                        trapChance = 0;
+                    }
+                    isMatchedMap = true;
+                    break;
                 }
-                isMatchedMap = true;
-                break;
             }
         }
 

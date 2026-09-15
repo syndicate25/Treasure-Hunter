@@ -1,8 +1,8 @@
 [
   {
-    "modid": "riderremover",
-    "name": "Rider Remover",
-    "description": "A mod to safely dismount non-player entities in both single-player and multiplayer.",
+    "modid": "treasurehunter",
+    "name": "Treasure Hunter",
+    "description": "A simple utility mod that adds functionality to custom map items.",
     "version": "1.0",
     "mcversion": "1.7.10",
     "authorList": ["syndicate_25"],
