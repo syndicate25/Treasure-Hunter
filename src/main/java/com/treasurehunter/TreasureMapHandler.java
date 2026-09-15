@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.Random;
@@ -34,20 +35,29 @@ public class TreasureMapHandler {
         }
 
         String itemName = Block.blockRegistry.getNameForObject(heldItem.getItem());
-        if (itemName == null || !itemName.startsWith("quadrum:")) {
-            return; 
+        if (itemName == null) {
+            return;
         }
 
-        String lootTable = "";
+        String lootKey = "";
         int trapChance = 0;
+        boolean isMatchedMap = false;
 
-        if (itemName.equals("quadrum:treasure_map_easy")) {
-            lootTable = "recurrentcomplex:chests/easy_treasure"; 
-            trapChance = TreasureHunterMod.easyTrapChance;
-        } else if (itemName.equals("quadrum:treasure_map_hard")) {
-            lootTable = "lootpp:chests/hard_treasure";
-            trapChance = TreasureHunterMod.hardTrapChance;
-        } else {
+        for (String configLine : TreasureHunterMod.mapConfigurations) {
+            String[] parts = configLine.split("\\|");
+            if (parts.length >= 3 && parts[0].trim().equals(itemName)) {
+                lootKey = parts[1].trim();
+                try {
+                    trapChance = Integer.parseInt(parts[2].trim());
+                } catch (NumberFormatException e) {
+                    trapChance = 0;
+                }
+                isMatchedMap = true;
+                break;
+            }
+        }
+
+        if (!isMatchedMap) {
             return;
         }
 
@@ -87,9 +97,22 @@ public class TreasureMapHandler {
         }
 
         TileEntityChest tileChest = (TileEntityChest) world.getTileEntity(randomX, targetY, randomZ);
-        if (tileChest != null && !lootTable.isEmpty()) {
-            String command = String.format("setblockloot %d %d %d %s", randomX, targetY, randomZ, lootTable);
-            MinecraftServer.getServer().getCommandManager().executeCommand(MinecraftServer.getServer(), command);
+        if (tileChest != null && !lootKey.isEmpty()) {
+            if (lootKey.startsWith("rc:")) {
+                String rcId = lootKey.substring(3);
+                String command = String.format("setblockloot %d %d %d %s", randomX, targetY, randomZ, rcId);
+                MinecraftServer.getServer().getCommandManager().executeCommand(MinecraftServer.getServer(), command);
+            } else if (lootKey.startsWith("lpp:")) {
+                String lppId = lootKey.substring(4);
+                String command = String.format("lootpp fillchest %d %d %d %s", randomX, targetY, randomZ, lppId);
+                MinecraftServer.getServer().getCommandManager().executeCommand(MinecraftServer.getServer(), command);
+            } else if (lootKey.startsWith("vanilla:")) {
+                String vanillaId = lootKey.substring(8);
+                ChestGenHooks info = ChestGenHooks.getInfo(vanillaId);
+                if (info != null) {
+                    WeightedRandomChestContent.generateChestContents(random, info.getItems(random), tileChest, info.getCount(random));
+                }
+            }
         }
 
         world.playSoundEffect(player.posX, player.posY, player.posZ, "ambient.weather.thunder", 0.6F, 1.2F);
