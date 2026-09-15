@@ -10,17 +10,20 @@ import net.minecraftforge.common.config.Configuration;
 @Mod(modid = "treasurehunter", name = "Treasure Hunter", version = "1.0.0")
 public class TreasureHunterMod {
 
-    // Added "public" to the front of both variables below:
-    public static int easyTrapChance;
-    public static int hardTrapChance;
+    public static String[] mapConfigurations;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         config.load();
 
-        easyTrapChance = config.getInt("easyTrapChance", "Traps", 10, 0, 100, "Percentage chance for an easy map to spawn a trapped chest (0-100)");
-        hardTrapChance = config.getInt("hardTrapChance", "Traps", 35, 0, 100, "Percentage chance for a hard map to spawn a trapped chest (0-100)");
+        String[] defaults = {
+            "quadrum:my_easy_map|recurrentcomplex:chests/easy_treasure|10",
+            "quadrum:my_hard_map|lootpp:chests/hard_treasure|35"
+        };
+
+        mapConfigurations = config.getStringList("mapSettings", "Maps", defaults, 
+            "Format: itemRegistryName|lootTableCommandKey|trapChancePercentage (Separate multiple maps with a new line)");
 
         if (config.hasChanged()) {
             config.save();
