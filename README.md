@@ -1,79 +1,40 @@
-# Minecraft Forge 1.7.10 Mod Template
+# 🏹 Treasure Hunter (Minecraft 1.7.10)
 
-A starter template for building a Minecraft Forge mod for **Minecraft 1.7.10** using **Gradle**.
+Treasure Hunter is a simple utility mod that adds functionality to custom map items. When you use a treasure map, the mod consumes the item, picks a random spot within 50 blocks of you, and buries a treasure chest 2 to 5 blocks underground. It then prints the exact coordinates in your chat so you know where to go dig it up!
 
-## Features
+---
 
-- Minecraft Forge 1.7.10 project structure
-- Gradle-based build setup
-- Ready for mod development
-- Mixin support
-- MIT licensed
+## ⚙️ Features
+* **Buried Treasure:** Chests always spawn hidden just beneath the surface ground level, never floating in the air.
+* **Safety First:** The mod will not spawn chests in deep oceans, lava pools, or void spaces. If you try to use a map in a dangerous spot, it resets safely and saves your map item.
+* **Trapped Chests:** There is a configurable percentage chance that a chest will be a trapped variant with a block of TNT buried right underneath it!
+* **Custom Config:** A configuration file (`config/treasurehunter.cfg`) is created automatically on startup so you can change the trap chances at any time.
 
-## Requirements
+---
 
-- Java Development Kit (JDK) 8
+## 🛠️ How to Compile the Mod
+If you want to build this mod into a playable `.jar` file yourself, follow these quick steps:
 
-## Getting Started
+1. Make sure you have **Java 8 (JDK 8)** installed on your computer.
+2. Open your command prompt or terminal inside this project folder.
+3. Run the clean and build commands:
+   ```cmd
+   .\gradlew clean
+   ```
+   ```cmd
+   .\gradlew build
+   ```
+4. Once completed, your finished mod file will be waiting for you inside the folder:  
+   📂 `build/libs/`
 
-### 1. Copy the repository
+---
 
-#### Use this template
+## 📜 License & Usage Permissions
 
-Click on the `Use this template` button above to create a new repository from this repository.  
-Then clone your own repository.
+This project is licensed under the **MIT License**. 
 
-#### OR: Clone this repository
-
-```bash
-git clone https://github.com/AlphaConqueror/Minecraft-Forge-1.7.10-Mod-Template
-```
-
-### 2. Open the project
-
-Open the project in your IDE as a Gradle project.
-
-### 3. Setup Decomp Workspace
-
-```bash
-./gradlew setupDecompWorkspace
-```
-
-> [!NOTE]  
-> If you get an error like this:
-> > Task :makeStart FAILED  
-> > [ant:javac] warning: [options] bootstrap class path not set in conjunction with -source 6  
-> > [ant:javac] error: Source option 6 is no longer supported. Use 7 or later.  
-> > [ant:javac] error: Target option 6 is no longer supported. Use 7 or later.
->
-> you are using the wrong JDK version.
-
-### 4. Configure mod metadata
-
-Update the following project settings with your mod information:
-
-- Mod ID
-- Mod name
-- Mod description
-- Mod version
-- Author name(s)
-- Minecraft version
-
-found in the `gradle.properties` file.
-
-### 5. Build the project
-
-Use Gradle to build the project:
-
-```bash
-./gradlew build
-```
-
-## Helpful resources
-
-[mcmod.info File Guide and Help](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/modification-development/2405990-mcmod-info-file-guide-and-help)  
-[Mixin Examples](https://wiki.fabricmc.net/tutorial:mixin_examples)
-
-## License
-
-This project is licensed under the **MIT License**.
+### What you can do with this mod:
+* ✅ **Use it:** You are completely free to use this mod in any personal, public, or private modpacks.
+* ✅ **Share it:** You can host it on servers or share it with your friends.
+* ✅ **Modify it:** You can copy, change, or adapt the source code for your own projects.
+* ⚠️ **Condition:** You must keep the original copyright notice and credit to `syndicate_25` inside the source files. 
