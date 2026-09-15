@@ -1,0 +1,14 @@
+[
+  {
+    "modid": "riderremover",
+    "name": "Rider Remover",
+    "description": "A mod to safely dismount non-player entities in both single-player and multiplayer.",
+    "version": "1.0",
+    "mcversion": "1.7.10",
+    "authorList": ["syndicate_25"],
+    "url": "",
+    "updateUrl": "",
+    "credits": "Made with Forge MDK",
+    "logoFile": ""
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "de.alphaconqueror.examplemod.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.7.11",
+  "refmap": "examplemod.refmap.json",
+  "mixins": [
+    "MixinNetHandlerPlayServer",
+    "MixinServerConfigurationManager"
+  ],
+  "client": []
+}

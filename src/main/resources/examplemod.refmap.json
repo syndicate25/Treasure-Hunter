@@ -1,0 +1,26 @@
+{
+  "mappings": {
+    "de/alphaconqueror/examplemod/mixins/MixinServerConfigurationManager": {
+      "allowUserToConnect": "Lnet/minecraft/server/management/ServerConfigurationManager;func_148542_a(Ljava/net/SocketAddress;Lcom/mojang/authlib/GameProfile;)Ljava/lang/String;",
+      "Lnet/minecraft/server/management/ServerConfigurationManager;sendChatMsg(Lnet/minecraft/util/IChatComponent;)V": "Lnet/minecraft/server/management/ServerConfigurationManager;func_148539_a(Lnet/minecraft/util/IChatComponent;)V"
+    },
+    "de/alphaconqueror/examplemod/mixins/MixinNetHandlerPlayServer": {
+      "onDisconnect": "Lnet/minecraft/network/NetHandlerPlayServer;func_147231_a(Lnet/minecraft/util/IChatComponent;)V",
+      "Lnet/minecraft/server/management/ServerConfigurationManager;sendChatMsg(Lnet/minecraft/util/IChatComponent;)V": "Lnet/minecraft/server/management/ServerConfigurationManager;func_148539_a(Lnet/minecraft/util/IChatComponent;)V",
+      "processClickWindow": "Lnet/minecraft/network/NetHandlerPlayServer;func_147351_a(Lnet/minecraft/network/play/client/C0EPacketClickWindow;)V"
+    }
+  },
+  "data": {
+    "searge": {
+      "de/alphaconqueror/examplemod/mixins/MixinServerConfigurationManager": {
+        "allowUserToConnect": "Lnet/minecraft/server/management/ServerConfigurationManager;func_148542_a(Ljava/net/SocketAddress;Lcom/mojang/authlib/GameProfile;)Ljava/lang/String;",
+        "Lnet/minecraft/server/management/ServerConfigurationManager;sendChatMsg(Lnet/minecraft/util/IChatComponent;)V": "Lnet/minecraft/server/management/ServerConfigurationManager;func_148539_a(Lnet/minecraft/util/IChatComponent;)V"
+      },
+      "de/alphaconqueror/examplemod/mixins/MixinNetHandlerPlayServer": {
+        "onDisconnect": "Lnet/minecraft/network/NetHandlerPlayServer;func_147231_a(Lnet/minecraft/util/IChatComponent;)V",
+        "Lnet/minecraft/server/management/ServerConfigurationManager;sendChatMsg(Lnet/minecraft/util/IChatComponent;)V": "Lnet/minecraft/server/management/ServerConfigurationManager;func_148539_a(Lnet/minecraft/util/IChatComponent;)V",
+        "processClickWindow": "Lnet/minecraft/network/NetHandlerPlayServer;func_147351_a(Lnet/minecraft/network/play/client/C0EPacketClickWindow;)V"
+      }
+    }
+  }
+}
