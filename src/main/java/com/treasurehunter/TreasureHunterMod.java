@@ -23,16 +23,7 @@ public class TreasureHunterMod {
         };
 
         String instructionBlock = "Define your custom map items and link them to their target loot profiles here.\n"
-                + "Format: itemRegistryName|lootPrefix:lootKeyID|trapChancePercentage\n\n"
-                + "LOOT PREFIX EXAMPLES:\n"
-                + "  * Recurrent Complex (.rcig layout): Use \"rc:\" followed by the inventoryGeneratorID\n"
-                + "    Example -> quadrum:dark_cave_map|rc:darkCave|20\n\n"
-                + "  * Vanilla Minecraft Tables: Use \"vanilla:\" followed by the internal 1.7.10 generator key\n"
-                + "    Example -> quadrum:mineshaft_map|vanilla:mineshaftCorridor|15\n"
-                + "    (Common keys: mineshaftCorridor, dungeonChest, villageBlacksmith, strongholdLibrary, pyramidDeserChest)\n\n"
-                + "  * Loot++ Tables: Use \"lpp:\" followed by your customized reward folder entry\n"
-                + "    Example -> quadrum:custom_loot_map|lpp:chests/my_custom_table|5\n\n"
-                + "Separate multiple map configuration lines onto a new line entry inside the collection bracket below.";
+                + "Format: itemRegistryName|lootPrefix:lootKeyID|trapChancePercentage";
 
         mapConfigurations = config.getStringList("mapSettings", "Maps", defaults, instructionBlock);
 

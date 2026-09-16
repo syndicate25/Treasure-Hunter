@@ -44,30 +44,25 @@ public class TreasureMapHandler {
         int trapChance = 0;
         boolean isMatchedMap = false;
 
-        for (String configLine : TreasureHunterMod.mapConfigurations) {
-            if (configLine == null) {
-                continue;
-            }
-            
-            String cleanLine = configLine.trim();
-            if (!cleanLine.contains("|")) {
-                continue;
-            }
-            
-            String[] parts = cleanLine.split("\\|");
-            if (parts.length >= 3) {
-
-                String configuredItem = parts[0].trim();
+        if (TreasureHunterMod.mapConfigurations != null) {
+            for (String configLine : TreasureHunterMod.mapConfigurations) {
+                if (configLine == null || configLine.trim().isEmpty() || !configLine.contains("|")) {
+                    continue;
+                }
                 
-                if (configuredItem.equalsIgnoreCase(itemName.trim())) {
-                    lootKey = parts[1].trim();
-                    try {
-                        trapChance = Integer.parseInt(parts[2].trim());
-                    } catch (NumberFormatException e) {
-                        trapChance = 0;
+                String[] parts = configLine.trim().split("\\|");
+                if (parts.length >= 3) {
+                    String configuredItem = parts[0].trim();
+                    if (configuredItem.equalsIgnoreCase(itemName.trim())) {
+                        lootKey = parts[1].trim();
+                        try {
+                            trapChance = Integer.parseInt(parts[2].trim());
+                        } catch (NumberFormatException e) {
+                            trapChance = 0;
+                        }
+                        isMatchedMap = true;
+                        break;
                     }
-                    isMatchedMap = true;
-                    break;
                 }
             }
         }
